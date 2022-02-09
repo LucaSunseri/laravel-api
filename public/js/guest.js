@@ -2065,6 +2065,18 @@ __webpack_require__.r(__webpack_exports__);
   name: "PostCard",
   props: {
     post: Object
+  },
+  computed: {
+    maxCharacters: function maxCharacters() {
+      return this.post.content.substring(0, 150) + "...";
+    },
+    formatData: function formatData() {
+      var data = new Date(this.post.created_at);
+      var day = ("0" + data.getDate()).slice(-2);
+      var month = ("0" + (data.getMonth() + 1)).slice(-2);
+      var year = data.getFullYear();
+      return "".concat(day, "/").concat(month, "/").concat(year);
+    }
   }
 });
 
@@ -2139,7 +2151,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-0316f912] {\n  margin: 20px;\n  padding: 20px;\n  width: 500px;\n  min-height: 200px;\n  border-radius: 10px;\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);\n  transition: all 0.2s;\n  background: radial-gradient(#76b2fe, #b69efe);\n}\n.card[data-v-0316f912]:hover {\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);\n  transform: scale(1.01);\n}\n.card__apply[data-v-0316f912] {\n  margin-top: 30px;\n}\n.card__link[data-v-0316f912] {\n  position: relative;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.9);\n}\n.card__link[data-v-0316f912]::after {\n  position: absolute;\n  top: 25px;\n  left: 0;\n  content: \"\";\n  width: 0%;\n  height: 3px;\n  background-color: rgba(255, 255, 255, 0.6);\n  transition: all 0.5s;\n}\n.card__link[data-v-0316f912]:hover::after {\n  width: 100%;\n}\n.content[data-v-0316f912] {\n  padding: 20px 0;\n}\n.data[data-v-0316f912] {\n  text-align: end;\n}", ""]);
+exports.push([module.i, ".card[data-v-0316f912] {\n  margin: 20px;\n  padding: 20px;\n  width: 500px;\n  min-height: 200px;\n  border-radius: 10px;\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);\n  transition: all 0.2s;\n  background: radial-gradient(#76b2fe, #b69efe);\n}\n.card h2[data-v-0316f912] {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  max-width: 100%;\n}\n.card[data-v-0316f912]:hover {\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);\n  transform: scale(1.01);\n}\n.card__apply[data-v-0316f912] {\n  margin-top: 30px;\n}\n.card__link[data-v-0316f912] {\n  position: relative;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.9);\n}\n.card__link[data-v-0316f912]::after {\n  position: absolute;\n  top: 25px;\n  left: 0;\n  content: \"\";\n  width: 0%;\n  height: 3px;\n  background-color: rgba(255, 255, 255, 0.6);\n  transition: all 0.5s;\n}\n.card__link[data-v-0316f912]:hover::after {\n  width: 100%;\n}\n.content[data-v-0316f912] {\n  padding: 20px 0;\n}\n.data[data-v-0316f912] {\n  text-align: end;\n}", ""]);
 
 // exports
 
@@ -3497,9 +3509,9 @@ var render = function () {
   return _c("div", { staticClass: "card" }, [
     _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
     _vm._v(" "),
-    _c("p", { staticClass: "content" }, [_vm._v(_vm._s(_vm.post.content))]),
+    _c("p", { staticClass: "content" }, [_vm._v(_vm._s(_vm.maxCharacters))]),
     _vm._v(" "),
-    _c("p", { staticClass: "data" }, [_vm._v("10/25/2000")]),
+    _c("p", { staticClass: "data" }, [_vm._v(_vm._s(_vm.formatData))]),
     _vm._v(" "),
     _vm._m(0),
   ])
