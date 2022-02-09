@@ -2082,7 +2082,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-4ac4d2f8] {\n  height: calc(100vh - 140px);\n  overflow: auto;\n  padding-bottom: 100px;\n}\nh1[data-v-4ac4d2f8] {\n  margin: 25px 0;\n}\n.container[data-v-4ac4d2f8] {\n  width: 80%;\n  margin: 0 auto;\n}\n.card-wrapper[data-v-4ac4d2f8] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));\n  grid-gap: 1.5rem;\n  max-width: 100vw;\n  width: 120ch;\n  padding-left: 1rem;\n  padding-right: 1rem;\n}", ""]);
+exports.push([module.i, "main[data-v-4ac4d2f8] {\n  height: calc(100vh - 140px);\n  overflow: auto;\n  padding-bottom: 100px;\n}\n.container[data-v-4ac4d2f8] {\n  width: 80%;\n  margin: 0 auto;\n}\nh1[data-v-4ac4d2f8] {\n  margin: 25px 0;\n}\n.container_post[data-v-4ac4d2f8] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n}", ""]);
 
 // exports
 
@@ -2139,7 +2139,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-0316f912] {\n  --card-gradient: rgba(0, 0, 0, 0.8);\n  --card-gradient: #5e9ad9, #e271ad;\n  --card-blend-mode: overlay;\n  background-color: #fff;\n  border-radius: 0.5rem;\n  box-shadow: 0.05rem 0.1rem 0.3rem -0.03rem rgba(0, 0, 0, 0.45);\n  padding-bottom: 1rem;\n  background-image: linear-gradient(var(--card-gradient), white max(9.5rem, 27vh));\n  overflow: hidden;\n}\n.card img[data-v-0316f912] {\n  border-radius: 0.5rem 0.5rem 0 0;\n  width: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-height: max(10rem, 30vh);\n  aspect-ratio: 4/3;\n  mix-blend-mode: var(--card-blend-mode);\n}\n.card img ~ *[data-v-0316f912] {\n  margin-left: 1rem;\n  margin-right: 1rem;\n}\n.card[data-v-0316f912] > :last-child {\n  margin-bottom: 0;\n}\n.card[data-v-0316f912]:hover, .card[data-v-0316f912]:focus-within {\n  --card-gradient: #24a9d5 max(8.5rem, 20vh);\n}\n.card h3[data-v-0316f912] {\n  margin-top: 1rem;\n  font-size: 1.25rem;\n}\n.card a[data-v-0316f912] {\n  color: inherit;\n}", ""]);
+exports.push([module.i, ".card[data-v-0316f912] {\n  margin: 20px;\n  padding: 20px;\n  width: 500px;\n  min-height: 200px;\n  border-radius: 10px;\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);\n  transition: all 0.2s;\n  background: radial-gradient(#76b2fe, #b69efe);\n}\n.card[data-v-0316f912]:hover {\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);\n  transform: scale(1.01);\n}\n.card__apply[data-v-0316f912] {\n  margin-top: 30px;\n}\n.card__link[data-v-0316f912] {\n  position: relative;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.9);\n}\n.card__link[data-v-0316f912]::after {\n  position: absolute;\n  top: 25px;\n  left: 0;\n  content: \"\";\n  width: 0%;\n  height: 3px;\n  background-color: rgba(255, 255, 255, 0.6);\n  transition: all 0.5s;\n}\n.card__link[data-v-0316f912]:hover::after {\n  width: 100%;\n}\n.content[data-v-0316f912] {\n  padding: 20px 0;\n}\n.data[data-v-0316f912] {\n  text-align: end;\n}", ""]);
 
 // exports
 
@@ -3375,11 +3375,11 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("main", [
     _c("div", { staticClass: "container" }, [
-      _c("h1", [_vm._v("I Miei Post")]),
+      _c("h1", [_vm._v("I miei Posts")]),
       _vm._v(" "),
       _c(
-        "ul",
-        { staticClass: "card-wrapper" },
+        "div",
+        { staticClass: "container_post" },
         _vm._l(_vm.posts, function (post) {
           return _c("PostCard", { key: post.id, attrs: { post: post } })
         }),
@@ -3494,22 +3494,29 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "card" }, [
-    _c("img", {
-      attrs: {
-        src: "https://images.unsplash.com/photo-1611916656173-875e4277bea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHw&ixlib=rb-1.2.1&q=80&w=400",
-        alt: "",
-      },
-    }),
+  return _c("div", { staticClass: "card" }, [
+    _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
     _vm._v(" "),
-    _c("h3", [
-      _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.post.title))]),
-    ]),
+    _c("p", { staticClass: "content" }, [_vm._v(_vm._s(_vm.post.content))]),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.post.content))]),
+    _c("p", { staticClass: "data" }, [_vm._v("10/25/2000")]),
+    _vm._v(" "),
+    _vm._m(0),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "card__apply" }, [
+      _c("a", { staticClass: "card__link", attrs: { href: "#" } }, [
+        _vm._v("Vai al Post "),
+        _c("i", { staticClass: "fas fa-arrow-right" }),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
