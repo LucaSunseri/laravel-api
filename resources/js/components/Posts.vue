@@ -5,6 +5,28 @@
             <div class="container_post">
                 <PostCard v-for="post in posts" :key="post.id" :post="post" />
             </div>
+            <div class="pagination">
+                <button
+                    @click="getPosts(pagination.current - 1)"
+                    :disabled="pagination.current == 1"
+                >
+                    Precedente
+                </button>
+                <button
+                    v-for="index in pagination.last"
+                    :key="index"
+                    @click="getPosts((page = index))"
+                    :disabled="pagination.current == index"
+                >
+                    {{ index }}
+                </button>
+                <button
+                    @click="getPosts(pagination.current + 1)"
+                    :disabled="pagination.current == pagination.last"
+                >
+                    Successiva
+                </button>
+            </div>
         </div>
     </main>
 </template>
@@ -19,20 +41,26 @@ export default {
     },
     data() {
         return {
-            apiUrl: "http://127.0.0.1:8000/api/posts",
+            apiUrl: "http://127.0.0.1:8000/api/posts?page=",
             posts: {},
+            pagination: {},
         };
     },
     mounted() {
         this.getPosts();
     },
     methods: {
-        getPosts() {
+        getPosts(page = 1) {
             axios
-                .get(this.apiUrl)
+                .get(this.apiUrl + page)
                 .then((response) => {
                     // handle success
                     this.posts = response.data.data;
+                    this.pagination = {
+                        current: response.data.current_page,
+                        last: response.data.last_page,
+                    };
+                    console.log(this.pagination);
                 })
                 .catch((error) => {
                     // handle error
@@ -64,5 +92,16 @@ h1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    button {
+        padding: 5px;
+        margin: 5px;
+        cursor: pointer;
+    }
 }
 </style>

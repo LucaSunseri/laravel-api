@@ -1954,6 +1954,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Posts",
@@ -1962,8 +1984,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      apiUrl: "http://127.0.0.1:8000/api/posts",
-      posts: {}
+      apiUrl: "http://127.0.0.1:8000/api/posts?page=",
+      posts: {},
+      pagination: {}
     };
   },
   mounted: function mounted() {
@@ -1973,9 +1996,15 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
-      axios.get(this.apiUrl).then(function (response) {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get(this.apiUrl + page).then(function (response) {
         // handle success
         _this.posts = response.data.data;
+        _this.pagination = {
+          current: response.data.current_page,
+          last: response.data.last_page
+        };
+        console.log(_this.pagination);
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -2094,7 +2123,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-4ac4d2f8] {\n  height: calc(100vh - 140px);\n  overflow: auto;\n  padding-bottom: 100px;\n}\n.container[data-v-4ac4d2f8] {\n  width: 80%;\n  margin: 0 auto;\n}\nh1[data-v-4ac4d2f8] {\n  margin: 25px 0;\n}\n.container_post[data-v-4ac4d2f8] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n}", ""]);
+exports.push([module.i, "main[data-v-4ac4d2f8] {\n  height: calc(100vh - 140px);\n  overflow: auto;\n  padding-bottom: 100px;\n}\n.container[data-v-4ac4d2f8] {\n  width: 80%;\n  margin: 0 auto;\n}\nh1[data-v-4ac4d2f8] {\n  margin: 25px 0;\n}\n.container_post[data-v-4ac4d2f8] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n}\n.pagination[data-v-4ac4d2f8] {\n  display: flex;\n  justify-content: center;\n  margin-top: 25px;\n}\n.pagination button[data-v-4ac4d2f8] {\n  padding: 5px;\n  margin: 5px;\n  cursor: pointer;\n}", ""]);
 
 // exports
 
@@ -3396,6 +3425,57 @@ var render = function () {
           return _c("PostCard", { key: post.id, attrs: { post: post } })
         }),
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "pagination" },
+        [
+          _c(
+            "button",
+            {
+              attrs: { disabled: _vm.pagination.current == 1 },
+              on: {
+                click: function ($event) {
+                  return _vm.getPosts(_vm.pagination.current - 1)
+                },
+              },
+            },
+            [_vm._v("\n                Precedente\n            ")]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.pagination.last, function (index) {
+            return _c(
+              "button",
+              {
+                key: index,
+                attrs: { disabled: _vm.pagination.current == index },
+                on: {
+                  click: function ($event) {
+                    _vm.getPosts((_vm.page = index))
+                  },
+                },
+              },
+              [_vm._v("\n                " + _vm._s(index) + "\n            ")]
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              attrs: {
+                disabled: _vm.pagination.current == _vm.pagination.last,
+              },
+              on: {
+                click: function ($event) {
+                  return _vm.getPosts(_vm.pagination.current + 1)
+                },
+              },
+            },
+            [_vm._v("\n                Successiva\n            ")]
+          ),
+        ],
+        2
       ),
     ]),
   ])
