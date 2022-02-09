@@ -12,10 +12,10 @@ export default {
 
 <style lang="scss" scoped>
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
     background: linear-gradient(
             to bottom,
             rgba(255, 255, 255, 0.15) 0%,
@@ -29,11 +29,9 @@ footer {
             #989898;
     background-blend-mode: multiply, multiply;
     p {
-        text-align: center;
         font-size: 20px;
         font-weight: 700;
         color: #fff;
-        padding: 20px;
     }
 }
 </style>
