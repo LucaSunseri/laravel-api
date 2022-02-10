@@ -1,6 +1,11 @@
 <template>
     <div class="card">
         <h2>{{ post.title }}</h2>
+        <h5 v-if="post.category">Categoria: {{ post.category.name }}</h5>
+        <h5 v-else>Categoria: Nessuna</h5>
+        <span v-for="(tag, index) in post.tags" :key="index" class="tag">{{
+            tag.name
+        }}</span>
         <p class="content">{{ maxCharacters }}</p>
         <p class="data">{{ formatData }}</p>
         <p class="card__apply">
@@ -19,7 +24,11 @@ export default {
     },
     computed: {
         maxCharacters() {
-            return this.post.content.substring(0, 150) + "...";
+            if (this.post.content.length > 80) {
+                return this.post.content.substring(0, 80) + "...";
+            } else {
+                return this.post.content;
+            }
         },
         formatData() {
             const data = new Date(this.post.created_at);
@@ -35,10 +44,11 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+    position: relative;
     margin: 20px;
     padding: 20px;
     width: 500px;
-    min-height: 200px;
+    min-height: 225px;
     border-radius: 10px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.2s;
@@ -57,11 +67,12 @@ export default {
 }
 
 .card__apply {
-    margin-top: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
 }
 
 .card__link {
-    position: relative;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.9);
 }
@@ -87,5 +98,18 @@ export default {
 
 .data {
     text-align: end;
+    font-size: 12px;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    padding: 3px 8px;
+    margin: 5px 0;
+    margin-right: 5px;
+    background-color: #76feaa;
+    border-radius: 5px;
 }
 </style>

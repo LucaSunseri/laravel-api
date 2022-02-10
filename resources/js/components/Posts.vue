@@ -42,7 +42,7 @@ export default {
     data() {
         return {
             apiUrl: "http://127.0.0.1:8000/api/posts?page=",
-            posts: {},
+            posts: [],
             pagination: {},
         };
     },
@@ -60,7 +60,6 @@ export default {
                         current: response.data.current_page,
                         last: response.data.last_page,
                     };
-                    console.log(this.pagination);
                 })
                 .catch((error) => {
                     // handle error

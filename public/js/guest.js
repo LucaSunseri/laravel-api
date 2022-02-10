@@ -1985,7 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apiUrl: "http://127.0.0.1:8000/api/posts?page=",
-      posts: {},
+      posts: [],
       pagination: {}
     };
   },
@@ -2004,7 +2004,6 @@ __webpack_require__.r(__webpack_exports__);
           current: response.data.current_page,
           last: response.data.last_page
         };
-        console.log(_this.pagination);
       })["catch"](function (error) {
         // handle error
         console.log(error);
@@ -2090,6 +2089,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostCard",
   props: {
@@ -2097,7 +2101,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     maxCharacters: function maxCharacters() {
-      return this.post.content.substring(0, 150) + "...";
+      if (this.post.content.length > 80) {
+        return this.post.content.substring(0, 80) + "...";
+      } else {
+        return this.post.content;
+      }
     },
     formatData: function formatData() {
       var data = new Date(this.post.created_at);
@@ -2180,7 +2188,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-0316f912] {\n  margin: 20px;\n  padding: 20px;\n  width: 500px;\n  min-height: 200px;\n  border-radius: 10px;\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);\n  transition: all 0.2s;\n  background: radial-gradient(#76b2fe, #b69efe);\n}\n.card h2[data-v-0316f912] {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  max-width: 100%;\n}\n.card[data-v-0316f912]:hover {\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);\n  transform: scale(1.01);\n}\n.card__apply[data-v-0316f912] {\n  margin-top: 30px;\n}\n.card__link[data-v-0316f912] {\n  position: relative;\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.9);\n}\n.card__link[data-v-0316f912]::after {\n  position: absolute;\n  top: 25px;\n  left: 0;\n  content: \"\";\n  width: 0%;\n  height: 3px;\n  background-color: rgba(255, 255, 255, 0.6);\n  transition: all 0.5s;\n}\n.card__link[data-v-0316f912]:hover::after {\n  width: 100%;\n}\n.content[data-v-0316f912] {\n  padding: 20px 0;\n}\n.data[data-v-0316f912] {\n  text-align: end;\n}", ""]);
+exports.push([module.i, ".card[data-v-0316f912] {\n  position: relative;\n  margin: 20px;\n  padding: 20px;\n  width: 500px;\n  min-height: 225px;\n  border-radius: 10px;\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);\n  transition: all 0.2s;\n  background: radial-gradient(#76b2fe, #b69efe);\n}\n.card h2[data-v-0316f912] {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  max-width: 100%;\n}\n.card[data-v-0316f912]:hover {\n  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);\n  transform: scale(1.01);\n}\n.card__apply[data-v-0316f912] {\n  position: absolute;\n  bottom: 20px;\n  left: 15px;\n}\n.card__link[data-v-0316f912] {\n  text-decoration: none;\n  color: rgba(255, 255, 255, 0.9);\n}\n.card__link[data-v-0316f912]::after {\n  position: absolute;\n  top: 25px;\n  left: 0;\n  content: \"\";\n  width: 0%;\n  height: 3px;\n  background-color: rgba(255, 255, 255, 0.6);\n  transition: all 0.5s;\n}\n.card__link[data-v-0316f912]:hover::after {\n  width: 100%;\n}\n.content[data-v-0316f912] {\n  padding: 20px 0;\n}\n.data[data-v-0316f912] {\n  text-align: end;\n  font-size: 12px;\n}\n.tag[data-v-0316f912] {\n  display: inline-block;\n  font-size: 10px;\n  font-weight: bold;\n  color: black;\n  padding: 3px 8px;\n  margin: 5px 0;\n  margin-right: 5px;\n  background-color: #76feaa;\n  border-radius: 5px;\n}", ""]);
 
 // exports
 
@@ -3586,15 +3594,30 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
-    _vm._v(" "),
-    _c("p", { staticClass: "content" }, [_vm._v(_vm._s(_vm.maxCharacters))]),
-    _vm._v(" "),
-    _c("p", { staticClass: "data" }, [_vm._v(_vm._s(_vm.formatData))]),
-    _vm._v(" "),
-    _vm._m(0),
-  ])
+  return _c(
+    "div",
+    { staticClass: "card" },
+    [
+      _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
+      _vm._v(" "),
+      _vm.post.category
+        ? _c("h5", [_vm._v("Categoria: " + _vm._s(_vm.post.category.name))])
+        : _c("h5", [_vm._v("Categoria: Nessuna")]),
+      _vm._v(" "),
+      _vm._l(_vm.post.tags, function (tag, index) {
+        return _c("span", { key: index, staticClass: "tag" }, [
+          _vm._v(_vm._s(tag.name)),
+        ])
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "content" }, [_vm._v(_vm._s(_vm.maxCharacters))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "data" }, [_vm._v(_vm._s(_vm.formatData))]),
+      _vm._v(" "),
+      _vm._m(0),
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function () {
@@ -16239,7 +16262,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\lucas\OneDrive\Documenti\Boolean\Bolean Esercizi\Laravel\laravel-api\resources\js\guest.js */"./resources/js/guest.js");
+module.exports = __webpack_require__(/*! C:\Users\lucas\OneDrive\Documenti\Boolean\Bolean Esercizi\Laravel\2022-02-09 laravel-api\resources\js\guest.js */"./resources/js/guest.js");
 
 
 /***/ })
